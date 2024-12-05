@@ -1,5 +1,4 @@
 // import React from "react";
-import Sidebar from "../SliderBar/Sliderbar";
 import StatsCard from "../StatsCard/StatsCard";
 
 const Mian = () => {

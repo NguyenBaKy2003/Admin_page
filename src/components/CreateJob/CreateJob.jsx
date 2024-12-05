@@ -179,7 +179,7 @@ const CreateJob = () => {
         {/* Button Tạo tin */}
         <button
           type="submit"
-          className="w-full bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-700 transition">
+          className="w-full bg-red-600 text-white py-3 rounded-md hover:bg-red-700 transition">
           TẠO TIN
         </button>
       </form>

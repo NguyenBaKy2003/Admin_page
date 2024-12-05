@@ -11,7 +11,7 @@ const Sidebar = () => {
 
   return (
     <div className="w-64 bg-white h-screen shadow-md">
-      <div className="p-4 text-xl font-bold text-indigo-600">Job Finder</div>
+      <div className="p-4 text-xl font-bold text-red-600">TLJob</div>
       <div className="space-y-2">
         {menuItems.map((item, index) => (
           <NavLink
@@ -20,9 +20,9 @@ const Sidebar = () => {
             className={({ isActive }) =>
               `flex items-center px-4 py-3 rounded-lg ${
                 isActive
-                  ? "bg-indigo-100 text-indigo-600 font-semibold"
+                  ? "bg-red-100 text-red-600 font-semibold"
                   : "text-gray-700"
-              } hover:bg-indigo-100 transition`
+              } hover:bg-red-100 transition`
             }>
             <span className="text-lg mr-3">{item.icon}</span>
             {item.label}

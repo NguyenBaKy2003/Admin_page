@@ -20,9 +20,9 @@ const RecruiterProfile = () => {
               alt="Avatar"
               className="w-24 h-24 rounded-full mb-4"
             />
-            <h2 className="text-xl font-semibold">trongmasteruser</h2>
+            <h2 className="text-xl font-semibold">Nguyenbaky</h2>
             <div className="mt-4">
-              <button className="bg-pink-500 text-white py-2 px-4 rounded-lg mr-2 hover:bg-pink-600">
+              <button className="bg-red-500 text-white py-2 px-4 rounded-lg mr-2 hover:bg-red-600">
                 Follow
               </button>
               <button className="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600">
@@ -37,7 +37,7 @@ const RecruiterProfile = () => {
               <a
                 href="https://locfuho.com"
                 className="text-blue-500 hover:underline">
-                https://locfuho.com
+                https://kyfuho.com
               </a>
             </p>
             <p>
@@ -63,13 +63,13 @@ const RecruiterProfile = () => {
         <div className="col-span-2 bg-white p-6 rounded-lg shadow-lg">
           <div className="space-y-4">
             <p>
-              <strong>Họ và tên:</strong> Trần Ngọc Trọng
+              <strong>Họ và tên:</strong> Nguyen Ba Ky
             </p>
             <p>
               <strong>Vị trí:</strong> HR
             </p>
             <p>
-              <strong>Email:</strong> trongmasteruser@gmail.com
+              <strong>Email:</strong> Nguyenbaky23@gmail.com
             </p>
             <p>
               <strong>Số điện thoại:</strong> 0123456789
@@ -81,7 +81,7 @@ const RecruiterProfile = () => {
               <strong>Tên công ty:</strong> Axon
             </p>
           </div>
-          <button className="mt-6 bg-pink-500 text-white py-2 px-4 rounded-lg hover:bg-pink-600">
+          <button className="mt-6 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600">
             Cập nhật thông tin
           </button>
         </div>
