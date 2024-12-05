@@ -11,21 +11,21 @@ const RecruiterProfile = () => {
       {/* Thông báo */}
 
       {/* Profile */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Avatar và Liên hệ */}
         <div className="bg-white p-6 rounded-lg shadow-lg">
           <div className="flex flex-col items-center">
             <img
-              src="https://via.placeholder.com/150"
+              src="https://scontent.fhan14-4.fna.fbcdn.net/v/t39.30808-1/344542573_1016776169700186_59734981782926054_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=102&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeHE3pzgZ09WIumVk2SaUlzW8AfSrMmpN6nwB9Ksyak3qRO3GRAQCJN5k0u9DAbLgHWd1mkLGJGTGZQ8xITqFMmC&_nc_ohc=jGanNVFrBxIQ7kNvgEyC35v&_nc_zt=24&_nc_ht=scontent.fhan14-4.fna&_nc_gid=AiUgm9wCwZSWqHE3Yh6tHkr&oh=00_AYA4nnyuPefG8Ov75zIpLv8e0-TPm8M1EtesEnjg1fKTHg&oe=675790A6"
               alt="Avatar"
               className="w-24 h-24 rounded-full mb-4"
             />
             <h2 className="text-xl font-semibold">Nguyenbaky</h2>
-            <div className="mt-4">
-              <button className="bg-red-500 text-white py-2 px-4 rounded-lg mr-2 hover:bg-red-600">
+            <div className="mt-4 md:flex ">
+              <button className="bg-red-500 text-white py-2 px-4 md:w-full rounded-lg mr-2 hover:bg-red-600">
                 Follow
               </button>
-              <button className="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600">
+              <button className="bg-blue-500 text-white  md:w-full py-2 px-4 rounded-lg hover:bg-blue-600">
                 Message
               </button>
             </div>
