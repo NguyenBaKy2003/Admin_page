@@ -1,9 +1,8 @@
 // import React from "react";
-import Header from "../Header/Header";
 import Sidebar from "../SliderBar/Sliderbar";
 import StatsCard from "../StatsCard/StatsCard";
 
-const App = () => {
+const Mian = () => {
   const stats = [
     { label: "Total Job Post", value: "4", icon: "📋", growth: "0%" },
     { label: "Views", value: "2,300", icon: "👁️", growth: "+3%" },
@@ -14,12 +13,9 @@ const App = () => {
   return (
     <div className="flex bg-gray-100 min-h-screen">
       {/* Sidebar */}
-      <Sidebar />
 
       {/* Main Content */}
       <div className="flex-1 p-6">
-        <Header />
-
         {/* Stats Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
           {stats.map((stat, index) => (
@@ -37,4 +33,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Mian;

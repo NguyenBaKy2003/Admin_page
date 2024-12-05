@@ -1,4 +1,5 @@
 // import React from "react";
+import PropTypes from "prop-types";
 
 const StatsCard = ({ label, value, icon, growth }) => {
   const growthColor = growth.startsWith("-")
@@ -15,6 +16,14 @@ const StatsCard = ({ label, value, icon, growth }) => {
       <div className="text-3xl text-indigo-600">{icon}</div>
     </div>
   );
+};
+
+// Sử dụng PropTypes để kiểm tra kiểu dữ liệu của props
+StatsCard.propTypes = {
+  label: PropTypes.string.isRequired, // `label` phải là chuỗi và bắt buộc
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // `value` có thể là chuỗi hoặc số
+  icon: PropTypes.node.isRequired, // `icon` có thể là bất kỳ kiểu React node nào (biểu tượng, component, text...)
+  growth: PropTypes.string.isRequired, // `growth` phải là chuỗi
 };
 
 export default StatsCard;
