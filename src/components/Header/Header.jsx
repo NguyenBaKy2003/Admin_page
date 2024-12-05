@@ -25,20 +25,6 @@ const Header = () => {
             Nâng cấp gói
           </button>
         </Link>
-
-        {/* Nút Đăng ký và Đăng nhập */}
-        <div className="flex space-x-2">
-          <Link to="/register">
-            <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
-              Đăng ký
-            </button>
-          </Link>
-          <Link to="/login">
-            <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
-              Đăng nhập
-            </button>
-          </Link>
-        </div>
       </div>
     </div>
   );
