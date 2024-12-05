@@ -18,7 +18,7 @@ function LayOut() {
 
         <div className="flex-1 flex flex-col">
           <main className="flex-1 p-6">
-            {location.pathname === "/employes" ? <Main /> : <Outlet />}{" "}
+            {location.pathname === "/" ? <Main /> : <Outlet />}{" "}
             {/* Main Content */}
           </main>
         </div>
