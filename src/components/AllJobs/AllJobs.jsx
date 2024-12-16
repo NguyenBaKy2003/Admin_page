@@ -1,54 +1,37 @@
-import { useState } from "react";
-
-const jobs = [
-  {
-    company: "FPT Software",
-    recruiter: "Nguyen Van A",
-    industry: "Technology",
-    position: "Frontend Developer",
-    jobType: "Full-time",
-    location: "Đà Nẵng",
-    salary: "$1,500 - $2,000",
-    expirationDate: "2024-12-31",
-    status: "Open",
-  },
-  {
-    company: "Axon",
-    recruiter: "Tran Ngoc Trong",
-    industry: "Human Resources",
-    position: "HR Specialist",
-    jobType: "Part-time",
-    location: "Hà Nội",
-    salary: "$1,000 - $1,500",
-    expirationDate: "2024-12-15",
-    status: "Closed",
-  },
-  {
-    company: "VN EcoFloor",
-    recruiter: "Nguyen Ngoc Nhan",
-    industry: "Manufacturing",
-    position: "Backend Developer",
-    jobType: "Full-time",
-    location: "Đà Nẵng",
-    salary: "$2,000 - $3,000",
-    expirationDate: "2024-12-20",
-    status: "Open",
-  },
-  {
-    company: "Shera Việt Nam",
-    recruiter: "Nguyen Van B",
-    industry: "Construction",
-    position: "Project Manager",
-    jobType: "Contract",
-    location: "Hà Nội",
-    salary: "$3,000 - $4,000",
-    expirationDate: "2024-12-25",
-    status: "Open",
-  },
-];
+import { useState, useEffect } from "react";
+import axios from "axios"; // You can use axios for HTTP requests
 
 const AllJobs = () => {
-  const [jobList, setJobList] = useState(jobs);
+  const [jobList, setJobList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch jobs from the API
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3001/api/jobs/jobsall"
+        );
+        setJobList(response.data); // Set the fetched job data to state
+      } catch (err) {
+        setError("Error fetching job listings. Please try again later.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchJobs();
+  }, []); // Empty dependency array means this effect runs once when the component mounts
+
+  if (loading) {
+    return <div>Loading...</div>; // Show loading message while fetching
+  }
+
+  if (error) {
+    return <div>{error}</div>; // Show error message if fetch fails
+  }
 
   // Delete a job by index
   const handleDelete = (index) => {
@@ -64,19 +47,10 @@ const AllJobs = () => {
           <thead>
             <tr className="bg-gray-100">
               <th className="border border-gray-300 px-4 py-2 text-left">
-                Company
+                Title
               </th>
               <th className="border border-gray-300 px-4 py-2 text-left">
-                Recruiter
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
-                Industry
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
-                Position
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
-                Job Type
+                Employer
               </th>
               <th className="border border-gray-300 px-4 py-2 text-left">
                 Location
@@ -85,10 +59,10 @@ const AllJobs = () => {
                 Salary
               </th>
               <th className="border border-gray-300 px-4 py-2 text-left">
-                Expiration Date
+                Type
               </th>
               <th className="border border-gray-300 px-4 py-2 text-left">
-                Status
+                Application Deadline
               </th>
               <th className="border border-gray-300 px-4 py-2 text-left">
                 Action
@@ -98,37 +72,23 @@ const AllJobs = () => {
           <tbody>
             {jobList.map((job, index) => (
               <tr
-                key={index}
+                key={job.id}
                 className={`${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}>
                 <td className="border border-gray-300 px-4 py-2">
-                  {job.company}
+                  {job.title}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {job.recruiter}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {job.industry}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {job.position}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {job.jobType}
+                  {job.employer}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
                   {job.location}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {job.salary}
+                  {job.salary.toLocaleString()} VNĐ
                 </td>
+                <td className="border border-gray-300 px-4 py-2">{job.type}</td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {job.expirationDate}
-                </td>
-                <td
-                  className={`border border-gray-300 px-4 py-2 font-semibold ${
-                    job.status === "Open" ? "text-green-600" : "text-red-600"
-                  }`}>
-                  {job.status}
+                  {job.application_deadline}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
                   <button

@@ -1,60 +1,38 @@
-// import React from "react";
-
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
-const applicants = [
-  {
-    name: "Phạm Đức Nam",
-    email: "namuser@gmail.com",
-    phone: "0123456789",
-    address: "Thành Phố Đà Nẵng",
-    status: "Access",
-  },
-  {
-    name: "Nguyễn Văn A",
-    email: "testuser1@gmail.com",
-    phone: "0123456789",
-    address: "Thành Phố Hà Nội",
-    status: "Access",
-  },
-  {
-    name: "Nguyễn Văn B",
-    email: "testuser2@gmail.com",
-    phone: "0123456789",
-    address: "Thành Phố Hồ Chí Minh",
-    status: "Access",
-  },
-  {
-    name: "Nguyễn Văn K",
-    email: "testuser3@gmail.com",
-    phone: "0123456789",
-    address: "Thành Phố Đà Nẵng",
-    status: "Access",
-  },
-  {
-    name: "Nguyễn Văn L",
-    email: "testuser4@gmail.com",
-    phone: "0123456789",
-    address: "Thành Phố Hà Nội",
-    status: "Access",
-  },
-  {
-    name: "Nguyễn Văn M",
-    email: "testuser5@gmail.com",
-    phone: "0123456789",
-    address: "Thành Phố Hồ Chí Minh",
-    status: "Access",
-  },
-  {
-    name: "Nguyen Ba Ky",
-    email: "nbk1936@donga.edu.vn",
-    phone: "0974538378",
-    address: "Thành Phố Hồ Chí Minh",
-    status: "Access",
-  },
-];
-
 const ApplicantsTable = () => {
+  const [applicants, setApplicants] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchApplicants = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3001/api/applicant/applicants"
+        );
+        setApplicants(response.data); // Set the applicants' data
+      } catch (err) {
+        setError("Failed to fetch applicants. Please try again later.");
+        console.error("Error fetching applicants:", err);
+      } finally {
+        setLoading(false); // Set loading to false once the request completes
+      }
+    };
+
+    fetchApplicants();
+  }, []); // Empty dependency array means it runs once when the component mounts
+
+  if (loading) {
+    return <div>Loading applicants...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   return (
     <div className="container mx-auto mt-10">
       <h2 className="text-2xl font-bold mb-4">Applicant List</h2>
@@ -75,6 +53,9 @@ const ApplicantsTable = () => {
                 Address
               </th>
               <th className="border border-gray-300 px-4 py-2 text-left">
+                Skills
+              </th>
+              <th className="border border-gray-300 px-4 py-2 text-left">
                 Status
               </th>
               <th className="border border-gray-300 px-4 py-2 text-left">
@@ -88,28 +69,39 @@ const ApplicantsTable = () => {
                 key={index}
                 className={`${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}>
                 <td className="border border-gray-300 px-4 py-2">
-                  {applicant.name}
+                  {applicant.User.firstName} {applicant.User.lastName}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {applicant.email}
+                  {applicant.User.email}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {applicant.phone}
+                  {applicant.User.phone}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {applicant.address}
+                  {applicant.User.address || "N/A"}
+                </td>
+
+                <td className="border border-gray-300 px-4 py-2">
+                  {applicant.Skills && applicant.Skills.length > 0 ? (
+                    <ul className="list-disc pl-5">
+                      {applicant.Skills.map((skill, idx) => (
+                        <li key={idx}>{skill.name}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No skills available</p>
+                  )}
                 </td>
                 <td
                   className={`border border-gray-300 px-4 py-2 ${
-                    applicant.status === "Access"
-                      ? "text-green-600"
-                      : "text-red-600"
+                    applicant.User.status === "Access"
+                      ? "text-red-600"
+                      : "text-green-600"
                   }`}>
-                  {applicant.status}
+                  {applicant.User.status}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  <Link to="/userprofile">
-                    {" "}
+                  <Link to={`/userprofile/${applicant.user_id}`}>
                     <button className="text-blue-500 hover:underline">
                       View Details
                     </button>

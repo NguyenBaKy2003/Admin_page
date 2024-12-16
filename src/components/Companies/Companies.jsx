@@ -1,46 +1,38 @@
-// import React from "react";
-
-const employers = [
-  {
-    name: "Huỳnh Hoài Nam",
-    email: "hoainam@gmail.com",
-    company: "FPT Software",
-    role: "Giám đốc",
-    location: "Đà Nẵng",
-    service: "Tiêu Chuẩn",
-    contact: "Gửi Email",
-  },
-  {
-    name: "Trần Ngọc Trọng",
-    email: "trongtestuser@gmail.com",
-    company: "Axon",
-    role: "HR",
-    location: "Hà Nội",
-    service: "Chưa Đăng Ký",
-    contact: "Gửi Email",
-  },
-  {
-    name: "Nguyễn Ngọc Nhân",
-    email: "nhantestuser@gmail.com",
-    company: "CÔNG TY CỔ PHẦN VN ECOFLOOR",
-    role: "Giám đốc",
-    location: "Đà Nẵng",
-    service: "Chưa Đăng Ký",
-    contact: "Gửi Email",
-  },
-  {
-    name: "Nguyễn Văn C",
-    email: "nguyenvanc@gmail.com",
-    company: "Công ty TNHH Shera Việt Nam",
-    role: "HR",
-    location: "Hà Nội",
-    service: "Chưa Đăng Ký",
-    contact: "Gửi Email",
-  },
-  // Add other employers as required
-];
+import React, { useState, useEffect } from "react";
+import axios from "axios"; // If you're using axios for HTTP requests
 
 const EmployerTable = () => {
+  const [employers, setEmployers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch employers data from API
+  useEffect(() => {
+    const fetchEmployers = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3001/api/employer/employers"
+        );
+        setEmployers(response.data); // Set the data to state
+      } catch (err) {
+        setError("Error fetching data. Please try again later.");
+        console.error(err);
+      } finally {
+        setLoading(false); // Set loading to false when data is fetched
+      }
+    };
+
+    fetchEmployers();
+  }, []); // Empty dependency array to ensure it runs once when component mounts
+
+  if (loading) {
+    return <div>Loading...</div>; // Show loading message while data is being fetched
+  }
+
+  if (error) {
+    return <div>{error}</div>; // Show error if the fetch fails
+  }
+
   return (
     <div className="container mx-auto mt-10 p-6 bg-gray-50 rounded-lg shadow">
       <h2 className="text-2xl font-bold mb-4">Employers</h2>
@@ -78,29 +70,33 @@ const EmployerTable = () => {
                       className="w-8 h-8 rounded-full"
                     />
                     <div>
-                      <p className="font-semibold">{employer.name}</p>
-                      <p className="text-sm text-gray-600">{employer.email}</p>
+                      <p className="font-semibold">
+                        {employer.User.firstName} {employer.User.lastName}
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        {employer.User.email}
+                      </p>
                     </div>
                   </div>
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  <p>{employer.company}</p>
-                  <p className="text-sm text-gray-600">{employer.role}</p>
+                  <p>{employer.company_name}</p>
+                  <p className="text-sm text-gray-600">{employer.position}</p>
                 </td>
                 <td
                   className={`border border-gray-300 px-4 py-2 font-semibold ${
-                    employer.service === "Tiêu Chuẩn"
+                    employer.service_id === 3
                       ? "text-green-600"
                       : "text-red-600"
                   }`}>
-                  {employer.service}
+                  {employer.service_id === 3 ? "Tiêu Chuẩn" : "Chưa Đăng Ký"}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {employer.location}
+                  {employer.company_address}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
                   <button className="text-blue-500 hover:underline">
-                    {employer.contact}
+                    Gửi Email
                   </button>
                 </td>
               </tr>
